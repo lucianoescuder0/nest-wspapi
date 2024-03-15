@@ -1,9 +1,11 @@
 import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class WspService {
 
   private accesToken: string = 'JKSADHAKJ21IYUG3AJKF435412ASDKJ';
+  private myConsole = new console.Console(createWriteStream(("./logs.txt")));
 
   constructor() {
   }
@@ -21,11 +23,12 @@ export class WspService {
       const changes = entry['changes'][0];
       const value = changes['value'];
       const msj = value['messages'];
-
-      const text = this.getTextUser(msj[0]);
-      console.log(text);
+      if (typeof msj != 'undefined') {
+        const text = this.getTextUser(msj[0]);
+        this.myConsole.log(text);
+      }
     } catch (e) {
-      console.error(e);
+      this.myConsole.error(e);
     }
     return 'EVENT_RECEIVED';
   }
