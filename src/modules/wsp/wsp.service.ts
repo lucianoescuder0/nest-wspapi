@@ -16,28 +16,35 @@ export class WspService {
   }
 
   receivedMessage(body: any) {
-    // try {
-    //   const entry = body['entry'][0];
-    //   const changes = entry['changes'][0];
-    //   const value = changes['value'];
-    //   const msj = value['messages'];
-    //
-    //   var text = this.getTextUser(msj[0]);
-    //   console.log(msj);
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    try {
+      const entry = body['entry'][0];
+      const changes = entry['changes'][0];
+      const value = changes['value'];
+      const msj = value['messages'];
+
+      const text = this.getTextUser(msj[0]);
+      console.log(text);
+    } catch (e) {
+      console.error(e);
+    }
     return 'EVENT_RECEIVED';
   }
 
-  // getTextUser(msj: any) {
-  //   var text = '';
-  //   const typeMsj = msj['type'];
-  //   if (typeMsj == 'text') {
-  //     text = (msj["text"])["body"];
-  //   } else if (typeMsj = 'interactive') {
-  //
-  //   }
-  // }
+  getTextUser(msj: any) {
+    let text = '';
+    const typeMsj = msj['type'];
+    if (typeMsj == 'text') {
+      text = (msj['text'])['body'];
+    } else if (typeMsj == 'interactive') {
+      const interactiveObject = msj['interactive'];
+      const typeInteractive = interactiveObject['type'];
+      if (typeInteractive == 'button_reply') {
+        text = (interactiveObject['button_reply'])['title'];
+      } else if (typeInteractive == 'list_reply') {
+        text = (interactiveObject['list_reply'])['title'];
+      }
+    }
+    return text;
+  }
 
 }
