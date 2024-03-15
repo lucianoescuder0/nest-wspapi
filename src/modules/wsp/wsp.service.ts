@@ -26,10 +26,12 @@ export class WspService {
       if (typeof msj != 'undefined') {
         const text = this.getTextUser(msj[0]);
         this.myConsole.log(text);
+        console.log(text);
       }
     } catch (e) {
       this.myConsole.error(e);
     }
+    console.log("Fin fin fin")
     return 'EVENT_RECEIVED';
   }
 
