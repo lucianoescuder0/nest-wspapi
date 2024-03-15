@@ -29,9 +29,9 @@ export class WspService {
         console.log(text);
       }
     } catch (e) {
+      console.error(e)
       this.myConsole.error(e);
     }
-    console.log("Fin fin fin")
     return 'EVENT_RECEIVED';
   }
 
