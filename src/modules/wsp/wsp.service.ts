@@ -1,13 +1,16 @@
 import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { createWriteStream } from 'fs';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class WspService {
 
   private accesToken: string = 'JKSADHAKJ21IYUG3AJKF435412ASDKJ';
-  private myConsole = new console.Console(createWriteStream(("./logs.txt")));
+  private myConsole = new console.Console(createWriteStream(('./logs.txt')));
 
-  constructor() {
+  constructor(
+    private readonly httpService: HttpService,
+  ) {
   }
 
   verifyToken(token: string, challenge: string) {
@@ -25,11 +28,11 @@ export class WspService {
       const msj = value['messages'];
       if (typeof msj != 'undefined') {
         const text = this.getTextUser(msj[0]);
-        this.myConsole.log(text);
-        console.log(text);
+        const number = msj[0]['from'];
+        this.sendMessageWhatsApp("Soy un loro: " + text, number);
       }
     } catch (e) {
-      console.error(e)
+      console.error(e);
       this.myConsole.error(e);
     }
     return 'EVENT_RECEIVED';
@@ -50,6 +53,27 @@ export class WspService {
       }
     }
     return text;
+  }
+
+  async sendMessageWhatsApp(text: string, number: number) {
+    const body = JSON.stringify({
+      'messaging_product': 'whatsapp',
+      'to': number,
+      'type': 'text',
+      'text': {
+        'body': text,
+      },
+    });
+
+    const response = await this.httpService.post(
+      'https://graph.facebook.com/v18.0/231485483389327/messages',
+      body,
+      {headers: {
+        "Content-Type": "application/json",
+          Authorization: "Bearer EABsZBWpyaORcBO7tISKUfVIlpCyi1bkfKbeTs6TvuZAXz20YZCJfrkGZABZBDB8erg9jo0MUwWl1MdvsiijXV0D06wFzMbqUJbXnNsk1NrSBsGltZCF7Sa9F4NICFKz8npaweJzgIec5W9tqJZAfkPGVQR15L2403CqfOx2ZA1LZB8ZBCokr6XsRdrEO0KPFOit8nL"
+        }}
+    ).toPromise();
+    return response.data;
   }
 
 }

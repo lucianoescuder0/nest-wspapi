@@ -1,6 +1,5 @@
 import { Body, ConflictException, Controller, Get, Post, Query } from '@nestjs/common';
 import { WspService } from './wsp.service';
-import { MessageDto } from './dto/message-dto';
 
 @Controller('/api/v1/wsp')
 export class WspController {
