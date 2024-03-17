@@ -64,6 +64,7 @@ export class WspService {
         'body': text,
       },
     });
+    console.log(body);
 
     const response = await this.httpService.post(
       'https://graph.facebook.com/v18.0/231485483389327/messages',
@@ -73,6 +74,7 @@ export class WspService {
           Authorization: "Bearer EABsZBWpyaORcBO7tISKUfVIlpCyi1bkfKbeTs6TvuZAXz20YZCJfrkGZABZBDB8erg9jo0MUwWl1MdvsiijXV0D06wFzMbqUJbXnNsk1NrSBsGltZCF7Sa9F4NICFKz8npaweJzgIec5W9tqJZAfkPGVQR15L2403CqfOx2ZA1LZB8ZBCokr6XsRdrEO0KPFOit8nL"
         }}
     ).toPromise();
+    console.log(response);
     return response.data;
   }
 
