@@ -58,13 +58,13 @@ export class WspService {
   async sendMessageWhatsApp(text: string, numberr: number) {
     const body = JSON.stringify({
       'messaging_product': 'whatsapp',
-      'to': numberr,
+      'to': "542664613511",
       'type': 'text',
       'text': {
         'body': text,
       },
     });
-    console.log(body);
+    console.log("mibody: " + body);
 
     const response = await this.httpService.post(
       'https://graph.facebook.com/v18.0/231485483389327/messages',
