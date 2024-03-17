@@ -55,10 +55,10 @@ export class WspService {
     return text;
   }
 
-  async sendMessageWhatsApp(text: string, number: number) {
+  async sendMessageWhatsApp(text: string, numberr: number) {
     const body = JSON.stringify({
       'messaging_product': 'whatsapp',
-      'to': number,
+      'to': numberr,
       'type': 'text',
       'text': {
         'body': text,
