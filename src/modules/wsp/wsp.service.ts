@@ -58,7 +58,7 @@ export class WspService {
   async sendMessageWhatsApp(text: string, numberr: number) {
     const body = JSON.stringify({
       'messaging_product': 'whatsapp',
-      'to': "542664613511",
+      'to': numberr,
       'type': 'text',
       'text': {
         'body': text,
@@ -74,7 +74,6 @@ export class WspService {
           Authorization: "Bearer EABsZBWpyaORcBO7tISKUfVIlpCyi1bkfKbeTs6TvuZAXz20YZCJfrkGZABZBDB8erg9jo0MUwWl1MdvsiijXV0D06wFzMbqUJbXnNsk1NrSBsGltZCF7Sa9F4NICFKz8npaweJzgIec5W9tqJZAfkPGVQR15L2403CqfOx2ZA1LZB8ZBCokr6XsRdrEO0KPFOit8nL"
         }}
     ).toPromise();
-    console.log(response);
     return response.data;
   }
 
