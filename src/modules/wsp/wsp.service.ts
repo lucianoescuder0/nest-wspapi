@@ -1,6 +1,7 @@
 import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { createWriteStream } from 'fs';
 import { HttpService } from '@nestjs/axios';
+import { ChatgptService } from './chatgpt/chatgpt.service';
 
 @Injectable()
 export class WspService {
@@ -10,6 +11,7 @@ export class WspService {
 
   constructor(
     private readonly httpService: HttpService,
+    private  chatgptService: ChatgptService,
   ) {
   }
 
@@ -20,7 +22,7 @@ export class WspService {
     return challenge;
   }
 
-  receivedMessage(body: any) {
+ async receivedMessage(body: any) {
     try {
       const entry = body['entry'][0];
       const changes = entry['changes'][0];
@@ -29,7 +31,13 @@ export class WspService {
       if (typeof msj != 'undefined') {
         const text = this.getTextUser(msj[0]);
         const number = msj[0]['from'];
-        this.sendMessageWhatsApp("Soy un loro: " + text, number);
+        const msjGPT = await this.chatgptService.chatGPTmessage(text)
+        if(msjGPT) {
+          this.sendMessageWhatsApp(msjGPT, number);
+        } else {
+          this.sendMessageWhatsApp(text, number);
+
+        }
       }
     } catch (e) {
       console.error(e);
@@ -58,7 +66,7 @@ export class WspService {
   async sendMessageWhatsApp(text: string, numberr: number) {
     const body = JSON.stringify({
       'messaging_product': 'whatsapp',
-      'to': numberr,
+      'to': "542664613511",
       'type': 'text',
       'text': {
         'body': text,
