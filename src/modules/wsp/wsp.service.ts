@@ -79,7 +79,7 @@ export class WspService {
       body,
       {headers: {
         "Content-Type": "application/json",
-          Authorization: "Bearer EABsZBWpyaORcBO7tISKUfVIlpCyi1bkfKbeTs6TvuZAXz20YZCJfrkGZABZBDB8erg9jo0MUwWl1MdvsiijXV0D06wFzMbqUJbXnNsk1NrSBsGltZCF7Sa9F4NICFKz8npaweJzgIec5W9tqJZAfkPGVQR15L2403CqfOx2ZA1LZB8ZBCokr6XsRdrEO0KPFOit8nL"
+          Authorization: "Bearer process.env['TOKEN']"
         }}
     ).toPromise();
     return response.data;
