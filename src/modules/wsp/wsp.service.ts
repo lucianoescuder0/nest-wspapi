@@ -73,7 +73,7 @@ export class WspService {
       'text': {
         'body': text,
       },
-    });
+    }); 
     console.log("mibody: " + body);
 
     const response = await this.httpService.post(
@@ -81,7 +81,7 @@ export class WspService {
       body,
       {headers: {
         "Content-Type": "application/json",
-          Authorization: "Bearer process.env['TOKEN']"
+          Authorization: "Bearer EABsZBWpyaORcBO7tISKUfVIlpCyi1bkfKbeTs6TvuZAXz20YZCJfrkGZABZBDB8erg9jo0MUwWl1MdvsiijXV0D06wFzMbqUJbXnNsk1NrSBsGltZCF7Sa9F4NICFKz8npaweJzgIec5W9tqJZAfkPGVQR15L2403CqfOx2ZA1LZB8ZBCokr6XsRdrEO0KPFOit8nL"
         }}
     ).toPromise();
     return response.data;
