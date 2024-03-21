@@ -30,7 +30,7 @@ export class WspService {
       }
       const entry = body['entry'][0];
       console.log("changes")
-      for (const m of body['changes']){
+      for (const m of entry['changes']){
         console.log(m)
       }
       const changes = entry['changes'][0];
