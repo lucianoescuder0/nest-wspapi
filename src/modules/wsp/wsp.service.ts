@@ -24,8 +24,15 @@ export class WspService {
 
  async receivedMessage(body: any) {
     try {
-      console.log(body)
+      console.log("Entitys")
+      for (const m of body['entry']){
+        console.log(m)
+      }
       const entry = body['entry'][0];
+      console.log("changes")
+      for (const m of body['changes']){
+        console.log(m)
+      }
       const changes = entry['changes'][0];
       const value = changes['value'];
       const msj = value['messages'];
@@ -77,7 +84,7 @@ export class WspService {
         'body': text,
       },
     });
-    console.log("mibody: " + body);
+    //console.log("mibody: " + body);
 
     const response = await this.httpService.post(
       'https://graph.facebook.com/v18.0/231485483389327/messages',
