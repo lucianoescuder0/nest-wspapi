@@ -5,13 +5,14 @@ import OpenAI from 'openai';
 export class ChatgptService {
 
 
-  async chatGPTmessage(text){
+  async chatGPTmessage(msjs: any){
     const openai = new OpenAI({
       apiKey: process.env['OPENAI_API_KEY'],
     });
     const chatCompletion = await openai.chat.completions.create({
-      messages: [{ role: 'user', content: text }],
+      messages: msjs,
       model: 'gpt-3.5-turbo',
+      temperature: 0.1
     });
     if(chatCompletion.choices.length > 0) {
       return chatCompletion.choices[0].message.content;
