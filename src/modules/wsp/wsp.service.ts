@@ -30,7 +30,10 @@ export class WspService {
       const value = changes['value'];
       const msj = value['messages'];
       if (typeof msj != 'undefined') {
-        console.log("Mensaje response:" + msj)
+        console.log("Mensaje response:")
+        for (const m of msj){
+          console.log(m)
+        }
         const text = this.getTextUser(msj[0]);
         const number = msj[0]['from'];
         const msjGPT = await this.chatgptService.chatGPTmessage(text)
@@ -73,7 +76,7 @@ export class WspService {
       'text': {
         'body': text,
       },
-    }); 
+    });
     console.log("mibody: " + body);
 
     const response = await this.httpService.post(
