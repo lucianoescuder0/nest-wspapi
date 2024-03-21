@@ -24,11 +24,13 @@ export class WspService {
 
  async receivedMessage(body: any) {
     try {
+      console.log(body)
       const entry = body['entry'][0];
       const changes = entry['changes'][0];
       const value = changes['value'];
       const msj = value['messages'];
       if (typeof msj != 'undefined') {
+        console.log("Mensaje response:" + msj)
         const text = this.getTextUser(msj[0]);
         const number = msj[0]['from'];
         const msjGPT = await this.chatgptService.chatGPTmessage(text)
